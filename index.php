@@ -56,7 +56,6 @@
             </div>
         </div>
     </nav>
-    </nav>
   <div class="container-fluid padding">
 
     <div class="row justify-content-center">
@@ -188,7 +187,7 @@
         </div>
     </div>
 </div>
-  </body>
+    </body>
 <!-- Footer -->
 <footer class="page-footer font-small ">
     <div class="footer-copyright text-light text-center py-3">© 2020 Copyright:
