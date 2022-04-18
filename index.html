@@ -1,166 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container-fluid padding">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-
-    
-    <?php
-
-    $city_naname = 'Manati';
-    $api_key = '65320c7fed411a5985fc27f952367d89';
-    $api_url = 'http://api.openweathermap.org/data/2.5/weather?q=' . $city_naname . '&appid=' . $api_key . '&lang=sp';
-
-    $weather_data = json_decode(file_get_contents($api_url), true);
-
-    $ciudad = $weather_data['name'];
-    $temperatura = 9 / 5 * $weather_data['main']['temp'] - 459.67;
-    $maxTem = 9 / 5 * $weather_data['main']['temp_max'] - 459.67;
-    $minTem = 9 / 5 * $weather_data['main']['temp_min'] - 459.67;
-    $main = $weather_data['weather'][0]['main'];
-    $icon = $weather_data['weather'][0]['icon'];
-    $humidity = $weather_data['main']['humidity'];
-    $vientos = $weather_data['wind']['speed'];
-    ?>
-    <nav class="navbar fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
-            <img src="https://www.crwflags.com/fotw/images/p/pr-mt1.gif" width="30" height="30" class="d-inline-block align-top" alt="">
-            <b>Manatí Weather App</b>
-        </a>
-    </nav>
-    <div class="jumbotron">
-        <div class="container shadow-lg  mb-5">
-            <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" style="background-image: url('https://boricuaonline.com/wp-content/uploads/2017/01/manati-1024x495.jpg')  ;background-size: 100% 100%;">
-                <h1 class="text-monospace">Manati Weather App</h1>
-                <p class="text-monospace">"Aquél que no está orgulloso de su origen, no valdrá nunca nada, pues comienza a despreciarse a si mismo" ~ Pedro Albizu Campos <br>(12 de septiembre de 1891- 21 de abril de 1965)</p>
-
-
-
-
-                <form action="WeatherAPP.php" method="post">
-                    <h2>New City Zip: </h2><input name="name" type="text" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"><br>
-                    <input type="submit" class="btn btn-primary">
-                </form>
-
-            </div>
-
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <h3 class="text-monospace">Location:<?php echo ' ' . $ciudad; ?></h3>
-                        <p>
-                        <div class="row">
-                            <div class="col"><img src="http://openweathermap.org/img/wn/<?php echo $icon; ?>@2x.png" alt="alternatetext" src="" width="50" height="50">
-
-                                </h6>
-                                <h5 class='text-light'>Temperature <?php echo ' ' . $temperatura; ?>
-
-                                </h5>
-                                <h5 class='text-light text-monospace'>
-                                    Min:<?php echo ' ' . $maxTem; ?>
-
-                                    Max:<?php echo ' ' . $minTem; ?>
-
-                                </h5>
-                                <h5 class='text-light'>Condition: <?php echo ' ' . $main; ?> </h5>
-                                <h5 class='text-light'>Humedad: <?php echo ' ' . $humidity; ?>
-
-                                </h5>
-                                <h5 class='text-light'> Vientos:<?php echo ' ' . $vientos; ?>
-
-                                </h5>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    </p>
-
-                    <div class="col-6">
-
-                        <?php
-
-                        if (empty($_POST["name"])) {
-                            $newCity = 'Enter a new';
-                        } else {
-                            try {
-                                $newCity = $_POST["name"];
-                                $api_key = '65320c7fed411a5985fc27f952367d89';
-                                $api_url = 'http://api.openweathermap.org/data/2.5/weather?zip=' . $newCity . '&appid=' . $api_key . '&lang=sp';
-                                $weather_data = json_decode(@file_get_contents($api_url), true);
-                                if ($weather_data == null || empty($weather_data['name'])) {
-                                    echo 'value not allowed';
-                                } else {
-                                    $ciudad = $weather_data['name'];
-                                    $temperatura = 9 / 5 * $weather_data['main']['temp'] - 459.67;
-                                    $maxTem = 9 / 5 * $weather_data['main']['temp_max'] - 459.67;
-                                    $minTem = 9 / 5 * $weather_data['main']['temp_min'] - 459.67;
-                                    $main = $weather_data['weather'][0]['main'];
-                                    $icon = $weather_data['weather'][0]['icon'];
-                                    $humidity = $weather_data['main']['humidity'];
-                                    $vientos = $weather_data['wind']['speed'];
-
-                                    echo '<div class="row">';
-                                    echo '<div class="col">';
-                                    echo '<h3>New Location: ' . $ciudad . '</h3>';
-                                    echo '<h6 class="text-primary"><img src="http://openweathermap.org/img/wn/' . $icon . '@2x.png" alt="alternatetext" src="" width="50" height="50"></h6>';
-                                    echo '<h5 class="text-light">Temperature' . $temperatura . '</h5>';
-
-
-                                    echo '<h5 class="text-light">
-                                    Min:' . $maxTem . '
-
-                                    Max:' . $minTem . '</h5>';
-
-                                    echo '<h5 class="text-light">Condition:' . $main . ' </h5>
-                                <h5 class="text-light">Humedad:' . $humidity . '';
-
-                                    echo '</h5>
-                                <h5 class="text-light"> Vientos:' . $vientos . '</h5>
-
-                            </div>
-
-                        </div>';
-                                }
-                            } catch (Exception $e) {
-                                echo $e->getMessage();
-                            }
-                        }
-
-
-                        ?>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-
-
+  <div class="row justify-content-center">
+    <div class="col-md-12 col-lg-2 text-center">
+      <div class="element">
+      <p><h2>
+      @<br>
+      |<br>
+      |<br>
+      |<br>
+      |<br>
+      |<br>
+      |<br>
+      N<br>
+      O<br>
+      E<br>
+      L<br>
+      </h2>
+    </p>
+    <a href="https://manatiweather.000webhostapp.com/index.php">
+    <img class="img1" src="https://manatiweather.000webhostapp.com/portfolio/images/1.jpg"></a>
     </div>
+    </div>
+    <div class=" col-md-6 text-center">
+      <h2 class="text-left">Hello, my name is<h2>
+      <h1>Noel A. Rodriguez.</h1>
+      
+      <p><h2>I’m a software engineer student trying to make it out there.
 
-    <footer class="text-center fixed-bottom" style="background-color: #f1f1f1;">
-        <!-- Grid container -->
 
-        <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
-            <a class="text-dark" href="">Nrodriguez8414</a>
+        I am born and raise in Puerto Rico. Love traveling, coding and try to enjoy my life as much as i can.
+
+       </h2></p>
+    </div>
+    <div class="col-md-4 text-right">
+      <p>
+        <a class="email" href="mailto: Noel.R.Rodriguez.R@gmail.com">
+          <p class="inicial">N<br>
+            O<br>
+            E<br>L<br>.<br>A<br>.<br>R<br>O<br>D<br>R<br>I<br>G<br>U<br>E<br>Z<br>
+            .<br>R<br>@<br>G<br>M<br>A<br>I<br>L<br>.<br>C<br>O<br>M<br>
+          </p>
+        </a>
+
+      </p>
+    </div>
+   
+  </div>
+</div>
 
 
+<!---Segunda columna two column section -->
+<div class="container-fluid padding">
+  <div class="row welcome text-center">
+    <div class="col-12">
+        <a id="proyecto"></a>
+      <h1 class="display-4">Proyects</h1>
+    </div>
+    
+  </div>
+  <hr class="my-4">
+ <div class="container-fluid padding">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-5">
+      <h2> ♦ Implemented a website to supply the forecast of any town provided. Achieved by implementing API calls to https://openweathermap.org/api from the PHP source code ...</h2>
+    </div>
+    <div class="col-lg-5">
+        <a href="https://manatiweather.000webhostapp.com/WeatherAPP">
+      <img class="img-fluid" src="https://manatiweather.000webhostapp.com/portfolio/images/proyecto1.png"></a>
+    </div>
+  </div>
+  <hr class="my-4">
+
+  <!---two column section -->
+  <div class="container-fluid padding">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-5">
+        <h2> ♦ ♦ Created a dynamic website using PHP/MySQL/HTML/CSS designed to be used
+          as a medical agenda for senior citizens to document follow-up
+          appointments, doctor notes, blood pressure, sugar, among others. The website also lets the user know if
+          they have abnormal blood pressure and sugar readings based on their
+          inputs. </h2>
+      </div>
+      <div class="col-lg-5">
+          <a href="https://manatiweather.000webhostapp.com/IREMEMBER">
+        <img class="img-fluid" src="https://manatiweather.000webhostapp.com/portfolio/images/proyecto3.png"></a>
+      </div>
+    </div>
+    <hr class="my-4">
+
+    <!---two column section -->
+    <div class="container-fluid padding">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-5">
+          <h2> ♦ ♦ ♦ Used Python skills to develop a twitterbot (twitter.com) (@manatiweather) using the
+            tweepy framework to create a social media presence by providing the local community with multiple
+            daily tweets with weather information such as temperature, conditions, humidity, etc. Also,
+            it answers back if you mention it.</h2>
         </div>
-        <!-- Copyright -->
-    </footer>
+        <div class="col-lg-5">
+            <a href="https://twitter.com/manatiweather">
+          <img class="img-fluid" src="https://manatiweather.000webhostapp.com/portfolio/images/proyecto5.png"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<hr>
 
-</body>
 
-</html>
+<!---Conect--->
+<div class="container-fluid padding">
+  <div class="row text-center">
+    <div class="col-12">
+        <a id="connect">.</a>
+      <h2>Connect<p>
+      My inbox is open. IF you want to just want to say hi, I’ll try my best to get back to you!
+      </p></h2>
+      
+    </div>
+    <div class="col-12 social padding">
+      <a href="https://www.linkedin.com/in/noel-a-rodriguez/"><i class="fab fa-linkedin"></i></a>
+      <a href="https://twitter.com/manatiweather"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</div>
+</div>
