@@ -32,6 +32,7 @@
   text-shadow: 2px 2px #000
 }
 </style>
+    
     <?php
 
     $city_naname = 'Manati';
@@ -48,8 +49,6 @@
     $icon = $weather_data['weather'][0]['icon'];
     $humidity = $weather_data['main']['humidity'];
     $vientos = $weather_data['wind']['speed'];
-
-
     ?>
     <nav class="navbar fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
@@ -58,19 +57,16 @@
         </a>
     </nav>
     <div class="jumbotron">
-        <div class= "container shadow-lg  mb-5">
-            <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" style="
-    background-image: url('https://boricuaonline.com/wp-content/uploads/2017/01/manati-1024x495.jpg')  ;background-size: 100% 100%;
-    
-  ">
+        <div class="container shadow-lg  mb-5">
+            <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" style="background-image: url('https://boricuaonline.com/wp-content/uploads/2017/01/manati-1024x495.jpg')  ;background-size: 100% 100%;">
                 <h1 class="text-monospace">Manati Weather App</h1>
-                <p class="text-monospace">"Aquél que no está orgulloso de su origen, no valdrá nunca nada, pues comienza a despreciarse a si mismo"  ~ Pedro Albizu Campos <br>(12 de septiembre de 1891- 21 de abril de 1965)</p>
+                <p class="text-monospace">"Aquél que no está orgulloso de su origen, no valdrá nunca nada, pues comienza a despreciarse a si mismo" ~ Pedro Albizu Campos <br>(12 de septiembre de 1891- 21 de abril de 1965)</p>
 
 
 
 
-                <form action="index.php" method="post">
-                    <h2>New City Zip: </h2><input name="name" type="text" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$ ><br>
+                <form action="WeatherAPP.php" method="post">
+                    <h2>New City Zip: </h2><input name="name" type="text" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"><br>
                     <input type="submit" class="btn btn-primary">
                 </form>
 
@@ -88,7 +84,7 @@
                                 <h5 class='text-light'>Temperature <?php echo ' ' . $temperatura; ?>
 
                                 </h5>
-                                <h5 class='text-light text-monospace' >
+                                <h5 class='text-light text-monospace'>
                                     Min:<?php echo ' ' . $maxTem; ?>
 
                                     Max:<?php echo ' ' . $minTem; ?>
@@ -162,9 +158,9 @@
 
                         ?>
 
-                     
+
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -175,16 +171,16 @@
     </div>
 
     <footer class="text-center fixed-bottom" style="background-color: #f1f1f1;">
-  <!-- Grid container -->
+        <!-- Grid container -->
 
-  <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2020 Copyright:
-    <a class="text-dark" href="">Nrodriguez8414</a>
-    
+        <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-dark" href="">Nrodriguez8414</a>
 
-  </div>
-  <!-- Copyright -->
-</footer>
+
+        </div>
+        <!-- Copyright -->
+    </footer>
 
 </body>
 
